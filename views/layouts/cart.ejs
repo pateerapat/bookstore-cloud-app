@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Head Tag Include -->
+<%- include("../partials/head-tag-partial.ejs") %>
+<!-- Head Tag Include -->
+
+<style>
+    .image-resize {
+        height: 400px;
+    }
+    .description-resize {
+        height: 150px;
+    }
+    .description-shift {
+        margin-top: -18px;
+    }
+</style>
+
+<body>
+    <div id="app">
+        <!-- Header Include -->
+        <%- include("../partials/header-partial.ejs") %>
+        <!-- Header Include -->
+        <div class="container">
+            <div class="m-5 p-5 box">
+                <p class="is-size-4 mb-5">Cart ({{ itemsInCart }}) <a href="/clearCartToEmpty" class="button is-danger">Clear</a></p>
+                <div class="columns is-multiline">
+                    <div class="column is-12 box p-5" v-for="item in cart">
+                        <div class="columns">
+                            <div class="column is-1">
+                                <img :src="item.cover">
+                            </div>
+                            <div class="column is-8">
+                                {{ item.title }} 
+                            </div>
+                            <div class="column is-3 has-text-right">
+                                <button class="button is-light">{{ item.price }} ฿ x {{ item.quantity }}</button>
+                                <button class="button is-primary">{{ (item.price * item.quantity).toFixed(2) }} ฿</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column is-3 is-offset-9 has-text-right">
+                        <div class="box">
+                            <div class="columns">
+                                <div class="column is-7 has-text-left">
+                                    <p>Subtotal</p>
+                                    <p>Delivery Fee</p>
+                                    <p class="is-size-5">Total</p>
+                                    <p class="is-size-5">Point Earned</p>
+                                </div>
+                                <div class="column is-5 has-text-right">
+                                    <p>{{ subTotal.toFixed(2) }} ฿</p>
+                                    <p>3 ฿</p>
+                                    <p class="has-text-danger is-size-5">{{ (subTotal + 3).toFixed(2) }} <span>฿</span></p>
+                                    <p class="has-text-danger is-size-5">{{ Math.floor(subTotal + 3) }} <span>Points</span></p>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="is-size-4" v-show="itemsInCart == 0">
+                            Your cart is empty.
+                        </p>
+                        <div v-show="itemsInCart > 0">
+                            <form method="POST" action="/buy">
+                                <button class="button is-primary">SEND ORDER</button>
+                                <input name="pointToAdd" type="hidden" :value="Math.floor(subTotal + 3)">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<!-- Footer Include -->
+<%- include("../partials/footer-partial.ejs") %>
+<!-- Footer Include -->
+
+</html>
+
+<script>
+    var app = new Vue({
+        el: "#app",
+        data: {
+            user: JSON.parse(`<%- userData %>`),
+            cart: JSON.parse(`<%- cartData %>`),
+            point: `<%- point %>`,
+        },
+        computed: {
+            itemsInCart() {
+                let count = 0;
+                this.cart.forEach(element => {
+                    count += element.quantity;
+                });
+                return count;
+            },
+            subTotal() {
+                let sum = 0;
+                this.cart.forEach(element => {
+                    sum += element.quantity*element.price;
+                });
+                return sum;
+            },
+        }
+    });
+</script>

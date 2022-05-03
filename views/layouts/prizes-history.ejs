@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Head Tag Include -->
+<%- include("../partials/head-tag-partial.ejs") %>
+<!-- Head Tag Include -->
+
+
+<body>
+    <div id="app">
+        <!-- Header Include -->
+        <%- include("../partials/header-partial.ejs") %>
+        <!-- Header Include -->
+
+        <div class="container">
+            <div class="m-5 p-5 box">
+                <div class="columns is-multiline">
+                    <h1 class="is-size-4 mb-4">
+                        <a href="/prizes" class="button is-primary">Prizes</a>
+                        <a disabled class="button is-primary ml-2">
+                            Redeem History
+                        </a>
+                    </h1>
+                    <div class="column is-12 box p-5" v-for="history in prizesHistory">
+                        <div class="columns">
+                            <div class="column is-1">
+                                <img :src="history.cover">
+                            </div>
+                            <div class="column is-3">
+                                <p>PRIZE</p>
+                                <p class="has-text-danger is-size-4">{{ history.name }}</p>
+                            </div>
+                            <div class="column is-2">
+                                <p>PRICE</p>
+                                <p class="is-size-4">{{ history.price }}</p>
+                            </div>
+                            <div class="column is-6">
+                                <p>REDEEM DATE</p>
+                                <p class="is-size-4">{{ history.redeem_date }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<!-- Footer Include -->
+<%- include("../partials/footer-partial.ejs") %>
+<!-- Footer Include -->
+
+</html>
+
+<script>
+    var app = new Vue({
+        el: "#app",
+        data: {
+            prizesHistory: JSON.parse(`<%- historyData %>`),
+            user: JSON.parse(`<%- userData %>`),
+            cart: JSON.parse(`<%- cartData %>`),
+            point: `<%- point %>`,
+        },
+        computed: {
+            itemsInCart() {
+                let count = 0;
+                this.cart.forEach(element => {
+                    count += element.quantity;
+                });
+                return count;
+            },
+        }
+    });
+</script>

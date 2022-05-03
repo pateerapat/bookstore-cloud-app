@@ -1,0 +1,32 @@
+<nav class="navbar">
+    <div class="navbar-brand">
+        <a href="/" class="navbar-item">
+            <i class="fa-solid fa-book-bookmark fa-2x pr-3"></i>
+            Bookstore Demo
+        </a>
+    </div>
+  
+    <div class="navbar-menu">
+        <div class="navbar-end">
+            <div class="navbar-item">
+                <div class="buttons">
+                    <a href="/change-password" class="button is-info">
+                        <strong>{{ user.first_name }} {{ user.last_name }} ({{ user.username }})</strong>
+                    </a>
+                    <a href="/prizes" class="button is-primary">
+                        <strong>Point: {{ point }}</strong>
+                    </a>
+                    <a href="/orders" class="button is-primary">
+                        <strong>Orders</strong>
+                    </a>
+                    <a href="/cart" class="button is-primary">
+                        <strong>Cart ({{ itemsInCart }})</strong>
+                    </a>
+                    <a href="/logout" class="button is-light">
+                        Logout
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>

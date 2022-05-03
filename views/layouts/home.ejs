@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Head Tag Include -->
+<%- include("../partials/head-tag-partial.ejs") %>
+<!-- Head Tag Include -->
+
+<style>
+    .image-resize {
+        height: 400px;
+    }
+    .description-resize {
+        height: 150px;
+    }
+    .description-shift {
+        margin-top: -18px;
+    }
+</style>
+
+<body>
+    <div id="app">
+        <!-- Header Include -->
+        <%- include("../partials/header-partial.ejs") %>
+        <!-- Header Include -->
+        <div class="container">
+            <form method="POST" action="/search">
+                <div class="columns m-5">
+                    <div class="column is-10">
+                        <input name="search" class="input" type="text" placeholder="search some books...">
+                    </div>
+                    <div class="column is-2">
+                        <button class="button is-primary is-fullwidth">Search</button>
+                    </div>
+                </div>
+            </form>    
+            <div class="columns is-multiline mt-5">
+                <div class="column is-3" v-for="book in books">
+                    <div class="p-5">
+                        <a :href="'/book/'+book.id">
+                            <img class="box image-resize" :src="book.cover">
+                        </a>
+                        <div class="box description-resize">
+                            <div class="columns is-multiline">
+                                <div class="column is-6">
+                                    <a class="button is-primary is-fullwidth">
+                                        {{ book.quantity }} <i class="fa-solid fa-ranking-star pl-2"></i></i>
+                                    </a>
+                                </div>
+                                <div class="column is-6">
+                                    <form method="POST" action="/addToCart">
+                                        <button class="button is-primary is-fullwidth">
+                                            <i class="fa-solid fa-cart-plus pr-2"></i> {{ book.price }} ฿
+                                        </button>
+                                        <input name="id" type="hidden" :value="book.id">
+                                    </form>
+                                </div>
+                                <div class="column is-12 description-shift">
+                                    {{ book.title }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<!-- Footer Include -->
+<%- include("../partials/footer-partial.ejs") %>
+<!-- Footer Include -->
+
+</html>
+
+<script>
+    var app = new Vue({
+        el: "#app",
+        data: {
+            user: JSON.parse(`<%- userData %>`),
+            books: JSON.parse(`<%- booksData %>`),
+            cart: JSON.parse(`<%- cartData %>`),
+            point: `<%- point %>`,
+        },
+        computed: {
+            itemsInCart() {
+                let count = 0;
+                this.cart.forEach(element => {
+                    count += element.quantity;
+                });
+                return count;
+            }
+        }
+    });
+</script>

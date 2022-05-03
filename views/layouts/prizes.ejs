@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Head Tag Include -->
+<%- include("../partials/head-tag-partial.ejs") %>
+<!-- Head Tag Include -->
+
+<body>
+    <div id="app">
+        <!-- Header Include -->
+        <%- include("../partials/header-partial.ejs") %>
+        <!-- Header Include -->
+        <div class="columns" style="text-align: center;">
+            <div class="column">
+                <!-- Column แสดงสินค้า--------------------------------------------------------->
+            <div class="column">
+                <h1 class="is-size-4 mb-4">All prizes ({{prizes.length}})
+                    <a disabled class="button is-primary">Prizes</a>
+                    <a href="/prizes-history" class="button is-primary ml-2">
+                        Redeem History
+                    </a>
+                </h1>
+                <div class="container is-max-desktop">
+                    <div class="is-multiline columns is-variable is-2">
+
+                        <!-- Card element start here------------------------------------------>
+                        <div  id="card_prize" class="column is-one-quarter" v-for="prize in prizes">
+                            <div class="card">
+                                <div class="card-image">
+                                    <figure class="image is-1by1">
+                                        <img :src="prize.cover" alt="Placeholder image">
+                                    </figure>
+                                </div>
+                                <div class="card-content">
+                                    <div class="media">
+                                        <div class="media-content">
+                                            <p class="title is-4">{{prize.name}}</p>
+                                            <p class="subtitle is-6">{{prize.detail}}</p>
+                                            <p class="subtitle is-6 has-text-danger">{{prize.price}} point   </p> <p class="subtitle is-7"> remain : {{prize.quantity}}</p>
+                                            <form method="POST" action="/redeem">
+                                                <button class="button is-primary mt-3" style="width: 50%;">Redeem</button>
+                                                <input name="prize_id" type="hidden" :value="prize.id">
+                                                <input name="pointToSub" type="hidden" :value="prize.price">
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+            
+</body>
+
+<!-- Footer Include -->
+<%- include("../partials/footer-partial.ejs") %>
+<!-- Footer Include -->
+
+</html>
+
+<script>
+    var app = new Vue({
+        el: "#app",
+        data: {
+            user: JSON.parse(`<%- userData %>`),
+            cart: JSON.parse(`<%- cartData %>`),
+            prizes: JSON.parse(`<%- prizes %>`),
+            point: `<%- point %>`,
+        },
+        computed: {
+            itemsInCart() {
+                let count = 0;
+                this.cart.forEach(element => {
+                    count += element.quantity;
+                });
+                return count;
+            },
+        }
+    });
+</script>

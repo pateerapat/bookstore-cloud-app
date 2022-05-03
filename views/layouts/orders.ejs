@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Head Tag Include -->
+<%- include("../partials/head-tag-partial.ejs") %>
+<!-- Head Tag Include -->
+
+<style>
+    .image-resize {
+        height: 400px;
+    }
+    .description-resize {
+        height: 150px;
+    }
+    .description-shift {
+        margin-top: -18px;
+    }
+    .button-height {
+        height: 100%;
+    }
+</style>
+
+<body>
+    <div id="app">
+        <!-- Header Include -->
+        <%- include("../partials/header-partial.ejs") %>
+        <!-- Header Include -->
+        <div class="container">
+            <div class="m-5 p-5 box">
+                <p class="is-size-4 mb-5">
+                    <span v-show="orderType == 'ongoing'">
+                        Ongoing Orders
+                    </span>
+                    <span v-show="orderType == 'completed'">
+                        Completed Orders
+                    </span>
+                    <span v-show="orderType == 'ongoing'">
+                        ({{ ongoingOrdersCount }})
+                    </span>
+                    <span v-show="orderType == 'completed'">
+                        ({{ completedOrdersCount }})
+                    </span>
+                    <button class="button is-primary" @click="orderType = 'ongoing'">Ongoing</button> <button class="button is-success" @click="orderType = 'completed'">Completed</button></p>
+                <div class="columns is-multiline">
+                    <div class="column is-12 box p-5" v-for="order in ongoingOrders" v-show="orderType == 'ongoing'">
+                        <div class="columns">
+                            <div class="column is-9">
+                                <div class="columns">
+                                    <div class="column is-3">
+                                        <p>ORDER ID</p>
+                                        <p class="has-text-danger is-size-2">{{ order.id }}</p>
+                                    </div>
+                                    <div class="column is-9">
+                                        <p>ORDER DATE</p>
+                                        <p class="is-size-2">{{ order.order_date }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="column is-3 has-text-right">
+                                <a :href="'/order/'+order.id" class="button is-primary button-height"><i class="fa-solid fa-chevron-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column is-12 box p-5" v-for="order in completedOrders" v-show="orderType == 'completed'">
+                        <div class="columns">
+                            <div class="column is-9">
+                                <div class="columns">
+                                    <div class="column is-3">
+                                        <p>ORDER ID</p>
+                                        <p class="has-text-danger is-size-2">{{ order.id }}</p>
+                                    </div>
+                                    <div class="column is-9">
+                                        <p>ORDER DATE</p>
+                                        <p class="is-size-2">{{ order.order_date }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="column is-3 has-text-right">
+                                <a :href="'/order/'+order.id" class="button is-primary button-height"><i class="fa-solid fa-chevron-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<!-- Footer Include -->
+<%- include("../partials/footer-partial.ejs") %>
+<!-- Footer Include -->
+
+</html>
+
+<script>
+    var app = new Vue({
+        el: "#app",
+        data: {
+            user: JSON.parse(`<%- userData %>`),
+            cart: JSON.parse(`<%- cartData %>`),
+            orders: JSON.parse(`<%- ordersData %>`),
+            orderType: "ongoing",
+            point: `<%- point %>`,
+        },
+        computed: {
+            itemsInCart() {
+                let count = 0;
+                this.cart.forEach(element => {
+                    count += element.quantity;
+                });
+                return count;
+            },
+            ongoingOrdersCount() {
+                let count = 0;
+                this.orders.forEach(element => {
+                    if (element.status == "ongoing") {
+                        count++;
+                    }
+                });
+                return count;
+            },
+            completedOrdersCount() {
+                let count = 0;
+                this.orders.forEach(element => {
+                    if (element.status == "completed") {
+                        count++;
+                    }
+                });
+                return count;
+            },
+            ongoingOrders() {
+                let orders = [];
+                this.orders.forEach(element => {
+                    if (element.status == "ongoing") {
+                        orders.push(element);
+                    }
+                });
+                return orders;
+            },
+            completedOrders() {
+                let orders = [];
+                this.orders.forEach(element => {
+                    if (element.status == "completed") {
+                        orders.push(element);
+                    }
+                });
+                return orders;
+            },
+        }
+    });
+</script>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Head Tag Include -->
+<%- include("../partials/head-tag-partial.ejs") %>
+<!-- Head Tag Include -->
+
+<style>
+    html{
+        background-image: linear-gradient(45deg, #E5E3C9 50%, #FFF6EA 50%);
+    }
+    .card {
+        border-radius: 10px;
+        margin: auto;
+        width: 50%;
+        height: 500px;
+    }
+    label{
+        color: #000;
+        font-family: 'Indie Flower', cursive;
+        font-size: 2em;
+        justify-content: center;
+        display: flex;
+        margin: 40px;
+        padding: 5%;
+    }
+    input{
+        width: 60%;
+        background: #e0dede;
+        display: flex;
+        margin: 20px auto 1px auto;
+        padding: 10px;
+        border: none;
+        outline: none;
+        border-radius: 5px;
+    }
+    button{
+        width: 60%;
+        height: 40px;
+        margin: 10px auto;
+        display: block;
+        color: #fff;
+        background:  #39AEA9;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    button:hover{
+        background: #C0D8C0;
+    }
+    .signButton{
+        width: 60%;
+        margin: 10px auto;
+        display: block;
+        text-align: center;
+    }
+    p{
+        padding-left: 20%;
+    }
+</style>
+<body>
+    <div id="app">
+        <!-- Content Here -->
+        <div class="card">
+            <form method="POST" action="/login">
+                <label>Log In</label>
+                <div>
+                    <input type="text" name="username" placeholder="Username">
+                </div>
+                <div>
+                    <input type="password" name="password" placeholder="Password">
+                    <% if (typeof message != "undefined") { %>
+                        <p class="help is-danger"><%= message %></p>
+                    <% } %>
+                </div>
+                <div>
+                    <button>Login</button>
+                </div>
+                <div>
+                    <a class="button signButton" href="/register">Sign Up</a>
+                </div>
+            <form>
+        </div>
+    </div>
+</body>
+
+<!-- Footer Include -->
+<%- include("../partials/footer-partial.ejs") %>
+<!-- Footer Include -->
+
+</html>
+
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            template: "test-data",
+        },
+    });
+</script>

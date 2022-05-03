@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Head Tag Include -->
+<%- include("../partials/head-tag-partial.ejs") %>
+<!-- Head Tag Include -->
+
+<style>
+    .image-resize {
+        height: 400px;
+    }
+    .description-resize {
+        height: 150px;
+    }
+    .description-shift {
+        margin-top: -18px;
+    }
+</style>
+
+<body>
+    <div id="app">
+        <!-- Header Include -->
+        <%- include("../partials/header-partial.ejs") %>
+        <!-- Header Include -->
+
+        <div class="container">
+            <div class="columns mt-5">
+                <div class="column is-12 has-text-centered">
+                    <p class="is-size-4">{{ book[0].title }}</p>
+                </div>
+            </div>
+            <div class="columns m-5">
+                <div class="column is-2">
+                    <img :src="book[0].cover">
+                    <div class="columns is-multiline">
+                        <div class="column is-12 mt-4">
+                            <a class="button is-primary is-fullwidth">
+                                {{ book[0].quantity }} <i class="fa-solid fa-ranking-star pl-2"></i></i>
+                            </a>
+                        </div>
+                        <div class="column is-12">
+                            <form method="POST" action="/addToCart">
+                                <button class="button is-primary is-fullwidth" href="/">
+                                    <i class="fa-solid fa-cart-plus pr-2"></i> {{ book[0].price }} ฿
+                                </button>
+                                <input name="id" type="hidden" :value="book[0].id">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="column is-6">
+                    <div class="box">
+                        <p>Publisher: none</p>
+                        <p>Illustrated by: none</p>
+                        <p>Story by: none</p>
+                    </div>
+                    <div class="box">
+                        <p>
+                            Synopsis: {{ synopsis }}
+                        </p>
+                    </div>
+                </div>
+                <div class="column is-4">
+                    <div class="box">
+                        <form method="POST" action="/post">
+                            <div class="field has-addons">
+                                <p class="control is-expanded">
+                                    <input name="comment" class="input" type="text" placeholder="post a comment...">
+                                    <input name="id" type="hidden" :value="book[0].id">
+                                </p>
+                                <p class="control">
+                                    <button class="button is-primary">Post</button>
+                                </p>
+                            </div>
+                        </form>
+                        
+                        
+                        <p class="mt-3 mb-3">Comments ({{ comments.length }})</p>
+                        <div class="box" v-for="comment in comments">
+                            <p class="has-text-weight-bold">
+                                {{ comment.username }}
+                            </p> 
+                            <p class="pb-3">
+                                {{ comment.comment }}
+                            </p>
+                            <form method="POST" action="/like">
+                                <button class="button is-danger is-rounded is-fullwidth"> {{ comment.like }} <i class="fa-solid fa-heart pl-2"></i></button>
+                                <input name="id" type="hidden" :value="comment.id">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</body>
+
+<!-- Footer Include -->
+<%- include("../partials/footer-partial.ejs") %>
+<!-- Footer Include -->
+
+</html>
+
+<script>
+    var app = new Vue({
+        el: "#app",
+        data: {
+            user: JSON.parse(`<%- userData %>`),
+            comments: JSON.parse(`<%- comments %>`),
+            book: JSON.parse(`<%- book %>`),
+            synopsis: `<%- synopsis %>`,
+            cart: JSON.parse(`<%- cartData %>`),
+            point: `<%- point %>`,
+        },
+        computed: {
+            itemsInCart() {
+                let count = 0;
+                this.cart.forEach(element => {
+                    count += element.quantity;
+                });
+                return count;
+            }
+        }
+    });
+</script>

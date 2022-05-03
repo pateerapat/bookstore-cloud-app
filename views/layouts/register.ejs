@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Head Tag Include -->
+<%- include("../partials/head-tag-partial.ejs") %>
+<!-- Head Tag Include -->
+
+<style>
+    html{
+        background-image: linear-gradient(45deg, #E5E3C9 50%, #FFF6EA 50%);
+    }
+    .card {
+        border-radius: 10px;
+        margin: auto;
+        width: 50%;
+    }
+    label{
+        color: #000;
+        font-family: 'Indie Flower', cursive;
+        font-size: 2em;
+        justify-content: center;
+        display: flex;
+        margin: 20px;
+        padding: 3%;
+    }
+    input{
+        width: 60%;
+        background: #e0dede;
+        display: flex;
+        margin: 20px auto 1px auto;
+        padding: 10px;
+        border: none;
+        outline: none;
+        border-radius: 5px;
+    }
+    select{
+        width: 60%;
+        background: #e0dede;
+        display: flex;
+        margin: 20px auto 1px auto;
+        padding: 10px;
+        border: none;
+        outline: none;
+        border-radius: 5px;
+    }
+    button{
+        width: 60%;
+        height: 40px;
+        margin: 10px auto;
+        display: block;
+        color: #fff;
+        background:  #39AEA9;
+        font-size: 1em;
+        font-weight: bold;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    button:hover{
+        background: #C0D8C0;
+    }
+    p{
+        padding-left: 20%
+    }
+    .signButton{
+        width: 60%;
+        margin: 10px auto;
+        display: block;
+        text-align: center;
+    }
+</style>
+<body>
+    <div id="app">
+        <!-- Content Here -->
+        <div class="card">
+            <form method="POST" action="/register">
+                <label>Sign up</label>
+                <div>
+                    <input type="text" name="first_name" placeholder="First Name" required>
+                </div>
+                <div>
+                    <input type="text" name="last_name" placeholder="Last Name" required>
+                </div>
+                <div>
+                    <input type="email" name="email" placeholder="Email" required>
+                </div>
+                <div>
+                    <select name="role" required>
+                        <option value="user">User</option>
+                        <option value="admin">Administrator</option>
+                    </select>
+                </div>
+                <div>
+                    <input type="text" name="username" placeholder="Username" required>
+                </div>
+                <div>
+                    <input type="password" name="password" placeholder="Password" required>
+                    <% if (typeof message != "undefined") { %>
+                        <p class="help is-success"><%= message %></p>
+                    <% } else if (typeof error != "undefined") { %>
+                        <p class="help is-danger"><%= error %></p>
+                    <% } %>
+                </div>
+                <div>
+                    <button>Sign up</button>
+                    <a class="button signButton" href="/login">Login</a>
+                </div>
+                <br>
+            <form>
+        </div>
+    </div>
+</body>
+
+<!-- Footer Include -->
+<%- include("../partials/footer-partial.ejs") %>
+<!-- Footer Include -->
+
+</html>
