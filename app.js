@@ -55,7 +55,7 @@ app.post("/register", async (req, res, next) => {
     } 
     axios({
         method: "POST",
-        url: "https://34.204.12.146:5000/users/register",
+        url: "localhost:5000/users/register",
         data: {
             username: req.body.username,
             password: req.body.password,
@@ -91,7 +91,7 @@ app.get("/login", ifLoggedIn, async (req, res, next) => {
 app.post("/login", async (req, res, next) => {
     axios({
         method: "POST",
-        url: "https://34.204.12.146:5000/users/login",
+        url: "localhost:5000/users/login",
         data: {
             username: req.body.username,
             password: req.body.password,
@@ -116,21 +116,21 @@ app.post("/login", async (req, res, next) => {
 app.get("/change-password", ifNotLoggedIn, async (req, res, next) => {
     const responseUserData = await axios({
         method: "GET",
-        url: "https://34.204.12.146:5000/users/get/data",
+        url: "localhost:5000/users/get/data",
         headers: {
             authorization: "bearer " + req.session.token,
         }
     })
     const responsePointData = await axios({
         method: "GET",
-        url: "https://34.204.12.146:5000/users/get/point",
+        url: "localhost:5000/users/get/point",
         headers: {
             authorization: "bearer " + req.session.token,
         }
     })
     const responseCartData = await axios({
         method: "GET",
-        url: "https://34.204.12.146:5000/carts/get/all",
+        url: "localhost:5000/carts/get/all",
         headers: {
             authorization: "bearer " + req.session.token,
         }
@@ -147,21 +147,21 @@ app.post("/change-password", ifNotLoggedIn, async (req, res, next) => {
     if (req.body.password.length < 8) {
         const responseUserData = await axios({
             method: "GET",
-            url: "https://34.204.12.146:5000/users/get/data",
+            url: "localhost:5000/users/get/data",
             headers: {
                 authorization: "bearer " + req.session.token,
             }
         })
         const responsePointData = await axios({
             method: "GET",
-            url: "https://34.204.12.146:5000/users/get/point",
+            url: "localhost:5000/users/get/point",
             headers: {
                 authorization: "bearer " + req.session.token,
             }
         })
         const responseCartData = await axios({
             method: "GET",
-            url: "https://34.204.12.146:5000/carts/get/all",
+            url: "localhost:5000/carts/get/all",
             headers: {
                 authorization: "bearer " + req.session.token,
             }
@@ -177,7 +177,7 @@ app.post("/change-password", ifNotLoggedIn, async (req, res, next) => {
     
     const response = await axios({
         method: "POST",
-        url: "https://34.204.12.146:5000/users/change/password",
+        url: "localhost:5000/users/change/password",
         headers: {
             authorization: "bearer " + req.session.token,
         },
@@ -195,25 +195,25 @@ app.post("/change-password", ifNotLoggedIn, async (req, res, next) => {
 app.get("/", ifNotLoggedIn, async (req, res, next) => {
     const responseUserData = await axios({
         method: "GET",
-        url: "https://34.204.12.146:5000/users/get/data",
+        url: "localhost:5000/users/get/data",
         headers: {
             authorization: "bearer " + req.session.token,
         }
     })
     const responsePointData = await axios({
         method: "GET",
-        url: "https://34.204.12.146:5000/users/get/point",
+        url: "localhost:5000/users/get/point",
         headers: {
             authorization: "bearer " + req.session.token,
         }
     })
     const responseBooksData = await axios({
         method: "GET",
-        url: "https://34.204.12.146:5000/books/get/all",
+        url: "localhost:5000/books/get/all",
     })
     const responseCartData = await axios({
         method: "GET",
-        url: "https://34.204.12.146:5000/carts/get/all",
+        url: "localhost:5000/carts/get/all",
         headers: {
             authorization: "bearer " + req.session.token,
         }
@@ -230,25 +230,25 @@ app.get("/", ifNotLoggedIn, async (req, res, next) => {
 app.get("/search", ifNotLoggedIn, async (req, res, next) => {
     const responseUserData = await axios({
         method: "GET",
-        url: "https://34.204.12.146:5000/users/get/data",
+        url: "localhost:5000/users/get/data",
         headers: {
             authorization: "bearer " + req.session.token,
         }
     })
     const responsePointData = await axios({
         method: "GET",
-        url: "https://34.204.12.146:5000/users/get/point",
+        url: "localhost:5000/users/get/point",
         headers: {
             authorization: "bearer " + req.session.token,
         }
     })
     const responseBooksData = await axios({
         method: "GET",
-        url: "https://34.204.12.146:5000/books/get/all",
+        url: "localhost:5000/books/get/all",
     })
     const responseCartData = await axios({
         method: "GET",
-        url: "https://34.204.12.146:5000/carts/get/all",
+        url: "localhost:5000/carts/get/all",
         headers: {
             authorization: "bearer " + req.session.token,
         }
@@ -265,23 +265,23 @@ app.get("/search", ifNotLoggedIn, async (req, res, next) => {
 app.post("/search", ifNotLoggedIn, async (req, res, next) => {
     const responseUserData = await axios({
         method: "GET",
-        url: "https://34.204.12.146:5000/users/get/data",
+        url: "localhost:5000/users/get/data",
         headers: {
             authorization: "bearer " + req.session.token,
         }
     })
     const responsePointData = await axios({
         method: "GET",
-        url: "https://34.204.12.146:5000/users/get/point",
+        url: "localhost:5000/users/get/point",
         headers: {
             authorization: "bearer " + req.session.token,
         }
     })
     let toRequest;
     if (req.body.search == "") {
-        toRequest = "https://34.204.12.146:5000/books/get/all";
+        toRequest = "localhost:5000/books/get/all";
     } else {
-        toRequest = "https://34.204.12.146:5000/books/search/"+req.body.search;
+        toRequest = "localhost:5000/books/search/"+req.body.search;
     }
     const responseBooksData = await axios({
         method: "GET",
@@ -289,7 +289,7 @@ app.post("/search", ifNotLoggedIn, async (req, res, next) => {
     })
     const responseCartData = await axios({
         method: "GET",
-        url: "https://34.204.12.146:5000/carts/get/all",
+        url: "localhost:5000/carts/get/all",
         headers: {
             authorization: "bearer " + req.session.token,
         }
@@ -306,29 +306,29 @@ app.post("/search", ifNotLoggedIn, async (req, res, next) => {
 app.get("/book/:id", ifNotLoggedIn, async (req, res, next) => {
     const responseUserData = await axios({
         method: "GET",
-        url: "https://34.204.12.146:5000/users/get/data",
+        url: "localhost:5000/users/get/data",
         headers: {
             authorization: "bearer " + req.session.token,
         }
     })
     const responsePointData = await axios({
         method: "GET",
-        url: "https://34.204.12.146:5000/users/get/point",
+        url: "localhost:5000/users/get/point",
         headers: {
             authorization: "bearer " + req.session.token,
         }
     })
     const responseBooksData = await axios({
         method: "GET",
-        url: "https://34.204.12.146:5000/books/get/book/"+req.params.id,
+        url: "localhost:5000/books/get/book/"+req.params.id,
     })
     const responseCommentsData = await axios({
         method: "GET",
-        url: "https://34.204.12.146:5000/comments/book/"+req.params.id,
+        url: "localhost:5000/comments/book/"+req.params.id,
     })
     const responseCartData = await axios({
         method: "GET",
-        url: "https://34.204.12.146:5000/carts/get/all",
+        url: "localhost:5000/carts/get/all",
         headers: {
             authorization: "bearer " + req.session.token,
         }
@@ -349,7 +349,7 @@ app.get("/book/:id", ifNotLoggedIn, async (req, res, next) => {
 app.post("/like", ifNotLoggedIn, async (req, res, next) => {
     const response = await axios({
         method: "POST",
-        url: "https://34.204.12.146:5000/comments/"+req.body.id+"/like",
+        url: "localhost:5000/comments/"+req.body.id+"/like",
     })
     res.redirect("back");
 });
@@ -357,7 +357,7 @@ app.post("/like", ifNotLoggedIn, async (req, res, next) => {
 app.post("/post", ifNotLoggedIn, async (req, res, next) => {
     const response = await axios({
         method: "POST",
-        url: "https://34.204.12.146:5000/comments/book/"+req.body.id,
+        url: "localhost:5000/comments/book/"+req.body.id,
         headers: {
             authorization: "bearer " + req.session.token,
         },
@@ -371,7 +371,7 @@ app.post("/post", ifNotLoggedIn, async (req, res, next) => {
 app.post("/addToCart", ifNotLoggedIn, async (req, res, next) => {
     const response = await axios({
         method: "POST",
-        url: "https://34.204.12.146:5000/carts/add",
+        url: "localhost:5000/carts/add",
         headers: {
             authorization: "bearer " + req.session.token,
         },
@@ -385,21 +385,21 @@ app.post("/addToCart", ifNotLoggedIn, async (req, res, next) => {
 app.get("/cart", ifNotLoggedIn, async (req, res, next) => {
     const responseUserData = await axios({
         method: "GET",
-        url: "https://34.204.12.146:5000/users/get/data",
+        url: "localhost:5000/users/get/data",
         headers: {
             authorization: "bearer " + req.session.token,
         }
     })
     const responsePointData = await axios({
         method: "GET",
-        url: "https://34.204.12.146:5000/users/get/point",
+        url: "localhost:5000/users/get/point",
         headers: {
             authorization: "bearer " + req.session.token,
         }
     })
     const responseCartData = await axios({
         method: "GET",
-        url: "https://34.204.12.146:5000/carts/get/all",
+        url: "localhost:5000/carts/get/all",
         headers: {
             authorization: "bearer " + req.session.token,
         }
@@ -415,7 +415,7 @@ app.get("/cart", ifNotLoggedIn, async (req, res, next) => {
 app.post("/buy", ifNotLoggedIn, async (req, res, next) => {
     let responseCartData = await axios({
         method: "GET",
-        url: "https://34.204.12.146:5000/carts/get/all",
+        url: "localhost:5000/carts/get/all",
         headers: {
             authorization: "bearer " + req.session.token,
         },
@@ -424,7 +424,7 @@ app.post("/buy", ifNotLoggedIn, async (req, res, next) => {
 
     let responseAddOrderData = await axios({
         method: "POST",
-        url: "https://34.204.12.146:5000/orders/add",
+        url: "localhost:5000/orders/add",
         headers: {
             authorization: "bearer " + req.session.token,
         },
@@ -434,7 +434,7 @@ app.post("/buy", ifNotLoggedIn, async (req, res, next) => {
     responseCartData.forEach(async (element) => {
         await axios({
             method: "POST",
-            url: "https://34.204.12.146:5000/order-items/add",
+            url: "localhost:5000/order-items/add",
             headers: {
                 authorization: "bearer " + req.session.token,
             },
@@ -448,7 +448,7 @@ app.post("/buy", ifNotLoggedIn, async (req, res, next) => {
 
     let responsePointData = await axios({
         method: "POST",
-        url: "https://34.204.12.146:5000/users/point",
+        url: "localhost:5000/users/point",
         headers: {
             authorization: "bearer " + req.session.token,
         },
@@ -460,7 +460,7 @@ app.post("/buy", ifNotLoggedIn, async (req, res, next) => {
 
     const responseClearCart = await axios({
         method: "POST",
-        url: "https://34.204.12.146:5000/carts/clear",
+        url: "localhost:5000/carts/clear",
         headers: {
             authorization: "bearer " + req.session.token,
         },
@@ -471,28 +471,28 @@ app.post("/buy", ifNotLoggedIn, async (req, res, next) => {
 app.get("/orders", ifNotLoggedIn, async (req, res, next) => {
     const responseUserData = await axios({
         method: "GET",
-        url: "https://34.204.12.146:5000/users/get/data",
+        url: "localhost:5000/users/get/data",
         headers: {
             authorization: "bearer " + req.session.token,
         }
     })
     const responsePointData = await axios({
         method: "GET",
-        url: "https://34.204.12.146:5000/users/get/point",
+        url: "localhost:5000/users/get/point",
         headers: {
             authorization: "bearer " + req.session.token,
         }
     })
     const responseCartData = await axios({
         method: "GET",
-        url: "https://34.204.12.146:5000/carts/get/all",
+        url: "localhost:5000/carts/get/all",
         headers: {
             authorization: "bearer " + req.session.token,
         }
     })
     const responseOrdersData = await axios({
         method: "GET",
-        url: "https://34.204.12.146:5000/orders/get/all",
+        url: "localhost:5000/orders/get/all",
         headers: {
             authorization: "bearer " + req.session.token,
         }
@@ -509,28 +509,28 @@ app.get("/orders", ifNotLoggedIn, async (req, res, next) => {
 app.get("/order/:id", ifNotLoggedIn, async (req, res, next) => {
     const responseUserData = await axios({
         method: "GET",
-        url: "https://34.204.12.146:5000/users/get/data",
+        url: "localhost:5000/users/get/data",
         headers: {
             authorization: "bearer " + req.session.token,
         }
     })
     const responsePointData = await axios({
         method: "GET",
-        url: "https://34.204.12.146:5000/users/get/point",
+        url: "localhost:5000/users/get/point",
         headers: {
             authorization: "bearer " + req.session.token,
         }
     })
     const responseCartData = await axios({
         method: "GET",
-        url: "https://34.204.12.146:5000/carts/get/all",
+        url: "localhost:5000/carts/get/all",
         headers: {
             authorization: "bearer " + req.session.token,
         }
     })
     const responseOrdersData = await axios({
         method: "GET",
-        url: "https://34.204.12.146:5000/order-items/get/" + req.params.id,
+        url: "localhost:5000/order-items/get/" + req.params.id,
         headers: {
             authorization: "bearer " + req.session.token,
         }
@@ -547,28 +547,28 @@ app.get("/order/:id", ifNotLoggedIn, async (req, res, next) => {
 app.get("/orders-status", ifNotLoggedIn, async (req, res, next) => {
     const responseUserData = await axios({
         method: "GET",
-        url: "https://34.204.12.146:5000/users/get/data",
+        url: "localhost:5000/users/get/data",
         headers: {
             authorization: "bearer " + req.session.token,
         }
     })
     const responsePointData = await axios({
         method: "GET",
-        url: "https://34.204.12.146:5000/users/get/point",
+        url: "localhost:5000/users/get/point",
         headers: {
             authorization: "bearer " + req.session.token,
         }
     })
     const responseCartData = await axios({
         method: "GET",
-        url: "https://34.204.12.146:5000/carts/get/all",
+        url: "localhost:5000/carts/get/all",
         headers: {
             authorization: "bearer " + req.session.token,
         }
     })
     const responseOrdersData = await axios({
         method: "POST",
-        url: "https://34.204.12.146:5000/orders/get/all",
+        url: "localhost:5000/orders/get/all",
         headers: {
             authorization: "bearer " + req.session.token,
         }
@@ -585,28 +585,28 @@ app.get("/orders-status", ifNotLoggedIn, async (req, res, next) => {
 app.get("/order-status/:id", ifNotLoggedIn, async (req, res, next) => {
     const responseUserData = await axios({
         method: "GET",
-        url: "https://34.204.12.146:5000/users/get/data",
+        url: "localhost:5000/users/get/data",
         headers: {
             authorization: "bearer " + req.session.token,
         }
     })
     const responsePointData = await axios({
         method: "GET",
-        url: "https://34.204.12.146:5000/users/get/point",
+        url: "localhost:5000/users/get/point",
         headers: {
             authorization: "bearer " + req.session.token,
         }
     })
     const responseCartData = await axios({
         method: "GET",
-        url: "https://34.204.12.146:5000/carts/get/all",
+        url: "localhost:5000/carts/get/all",
         headers: {
             authorization: "bearer " + req.session.token,
         }
     })
     const responseOrdersData = await axios({
         method: "POST",
-        url: "https://34.204.12.146:5000/order-items/get/" + req.params.id,
+        url: "localhost:5000/order-items/get/" + req.params.id,
         headers: {
             authorization: "bearer " + req.session.token,
         }
@@ -623,7 +623,7 @@ app.get("/order-status/:id", ifNotLoggedIn, async (req, res, next) => {
 app.post("/change-status", ifNotLoggedIn, async (req, res, next) => {
     const response = await axios({
         method: "POST",
-        url: "https://34.204.12.146:5000/orders/status",
+        url: "localhost:5000/orders/status",
         headers: {
             authorization: "bearer " + req.session.token,
         },
@@ -638,28 +638,28 @@ app.post("/change-status", ifNotLoggedIn, async (req, res, next) => {
 app.get("/prizes", ifNotLoggedIn, async (req, res, next) => {
     const responseUserData = await axios({
         method: "GET",
-        url: "https://34.204.12.146:5000/users/get/data",
+        url: "localhost:5000/users/get/data",
         headers: {
             authorization: "bearer " + req.session.token,
         }
     })
     const responsePointData = await axios({
         method: "GET",
-        url: "https://34.204.12.146:5000/users/get/point",
+        url: "localhost:5000/users/get/point",
         headers: {
             authorization: "bearer " + req.session.token,
         }
     })
     const responseCartData = await axios({
         method: "GET",
-        url: "https://34.204.12.146:5000/carts/get/all",
+        url: "localhost:5000/carts/get/all",
         headers: {
             authorization: "bearer " + req.session.token,
         }
     })
     const responsePrizesData = await axios({
         method: "GET",
-        url: "https://34.204.12.146:5000/prizes/get/all",
+        url: "localhost:5000/prizes/get/all",
     })
     res.render("layouts/prizes", {
         title: "Bookstore | Prize",
@@ -673,7 +673,7 @@ app.get("/prizes", ifNotLoggedIn, async (req, res, next) => {
 app.post("/redeem", ifNotLoggedIn, async (req, res, next) => {
     const response = await axios({
         method: "POST",
-        url: "https://34.204.12.146:5000/prize-history/history",
+        url: "localhost:5000/prize-history/history",
         headers: {
             authorization: "bearer " + req.session.token,
         },
@@ -684,7 +684,7 @@ app.post("/redeem", ifNotLoggedIn, async (req, res, next) => {
 
     let responsePointData = await axios({
         method: "POST",
-        url: "https://34.204.12.146:5000/users/point",
+        url: "localhost:5000/users/point",
         headers: {
             authorization: "bearer " + req.session.token,
         },
@@ -700,28 +700,28 @@ app.post("/redeem", ifNotLoggedIn, async (req, res, next) => {
 app.get("/prizes-history", ifNotLoggedIn, async (req, res, next) => {
     const responseUserData = await axios({
         method: "GET",
-        url: "https://34.204.12.146:5000/users/get/data",
+        url: "localhost:5000/users/get/data",
         headers: {
             authorization: "bearer " + req.session.token,
         }
     })
     const responsePointData = await axios({
         method: "GET",
-        url: "https://34.204.12.146:5000/users/get/point",
+        url: "localhost:5000/users/get/point",
         headers: {
             authorization: "bearer " + req.session.token,
         }
     })
     const responseCartData = await axios({
         method: "GET",
-        url: "https://34.204.12.146:5000/carts/get/all",
+        url: "localhost:5000/carts/get/all",
         headers: {
             authorization: "bearer " + req.session.token,
         }
     })
     const responseHistoryData = await axios({
         method: "GET",
-        url: "https://34.204.12.146:5000/prize-history/get/history",
+        url: "localhost:5000/prize-history/get/history",
         headers: {
             authorization: "bearer " + req.session.token,
         },
@@ -738,7 +738,7 @@ app.get("/prizes-history", ifNotLoggedIn, async (req, res, next) => {
 app.get("/clearCartToEmpty", ifNotLoggedIn, async (req, res, next) => {
     const response = await axios({
         method: "POST",
-        url: "https://34.204.12.146:5000/carts/clear",
+        url: "localhost:5000/carts/clear",
         headers: {
             authorization: "bearer " + req.session.token,
         },
