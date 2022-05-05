@@ -3,7 +3,6 @@ const path = require("path");
 const cookieSession = require("cookie-session");
 const dotenv = require("dotenv");
 const axios = require("axios");
-const aws = require("aws-sdk");
 
 dotenv.config();
 
@@ -29,7 +28,6 @@ const {
     ifNotLoggedIn,
     ifLoggedIn,
     validateEmail,
-    // getUserData,
 } = require("./functions/functions");
 
 app.get("/register", async (req, res, next) => {
